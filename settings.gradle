@@ -8,4 +8,5 @@ pluginManagement {
 rootProject.name = 'kafka'
 include 'app-member'
 include 'app-coupon'
+include 'app-instructor'
 

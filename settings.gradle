@@ -11,4 +11,5 @@ include 'app-coupon'
 include 'app-instructor'
 include 'app-lesson'
 include 'app-registration'
+include 'app-payment'
 

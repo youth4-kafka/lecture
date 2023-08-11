@@ -1,35 +1,51 @@
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.15-SNAPSHOT'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-}
+buildscript {
+	ext {
+		springBootVersion = '2.7.14'
+		dependencyManagementVersion = '1.0.15.RELEASE'
 
-group = 'youth'
-version = '0.0.1-SNAPSHOT'
-
-java {
-	sourceCompatibility = '17'
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
 	}
 }
 
 repositories {
 	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+subprojects {
+	group = 'study'
+	version = '2.7.14'
+
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+	sourceCompatibility = '17'
+
+	repositories {
+		mavenCentral()
+	}
+
+	// 하위 모듈에서 공통으로 사용하는 세팅 추가
+	dependencies {
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+	}
+
+	repositories {
+		mavenCentral()
+		maven { url 'https://repo.spring.io/milestone' }
+		maven { url 'https://repo.spring.io/snapshot' }
+	}
+
+
+
+	test {
+		useJUnitPlatform()
+	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
